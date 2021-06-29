@@ -73,7 +73,7 @@
                             {{ post.author }}</p></a>
                     <a href="{% url 'post-detail' post.id %}">
                         {% if post.avatar %}
-                            <img src="{{ post.avatar.url }}" class="img-fluid card-img-top" alt="">
+                            <img src="{{ post.avatar.url }}" class="card-img-top" alt="" style="height: 350px;">
                         {% endif %}</a>
                     <div class="card-body">
                         <h5 class="card-title">{{ post.tittle }}</h5>
