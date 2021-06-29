@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/edit-profile.css' %}">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+    <title>Edit</title>
+</head>
+<body>
+
+<nav class="navbar sticky-top navbar-light" style="background-color: #eaecec">
+    <div class="container-fluid">
+        <div class="col-sm-8">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'img/F.svg' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                fakebook
+            </a>
+        </div>
+    </div>
+</nav>
+
+<nav class="navbar fixed-bottom navbar-light" style="background-color: #eaecec">
+    <div class="container-fluid  justify-content-center">
+        <a class="navbar-brand" href="home.html">
+            <i class="fi-sr-home" style="font-size: 30px"></i>
+        </a>
+    </div>
+</nav>
+
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="simple-login-container">
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-md-12 form-group">
+                <img src="{{ author.avatar.url }}" id="blah" alt="your image" width="100" height="100"/>
+                <input type="file" name="avatar"
+                       onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <input type="text" name="first_name" class="form-control" value="{{ author.first_name }}"
+                       placeholder="Firstname">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <input type="text" name="last_name" class="form-control" value="{{ author.last_name }}"
+                       placeholder="Lastname">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <input type="text" name="bio" class="form-control" value="{{ author.bio }}"
+                       placeholder="I like football">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <input type="submit" class="btn btn-block btn-login" value="Success">
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+          integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
+    <title>MyMedia</title>
+</head>
+<body>
+
+<nav class="navbar sticky-top navbar-light" style="background-color: #eaecec">
+    <div class="container-fluid">
+        <div class="col-sm-8">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'img/F.svg' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                fakebook
+            </a>
+        </div>
+        <div class="col-sm-4">
+            <a class="navbar-brand" href="#">
+                <i class="fi-rr-user" style="float: right;margin-top: 4px ;font-size: 30px;display: none"></i>
+            </a>
+            <a class="navbar-brand" href="#">
+                <i class="fi-rr-bell" style="float: right;margin-top: 4px; margin-right: 20px ;font-size: 30px"></i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<nav class="navbar fixed-bottom navbar-light" style="background-color: #eaecec">
+    <div class="container-fluid  justify-content-center">
+        <a class="navbar-brand" href="{% url 'post-list' %}">
+            <i class="fi-sr-home" style="font-size: 30px"></i>
+        </a>
+    </div>
+</nav>
+
+
+<div class="container" style="margin-bottom: 60px;">
+    {% if post.author == user %}
+    <a href="{% url 'post-update' post.id %}">
+        <button type="button" class="btn btn-warning position-fixed" style="margin-top: 20px">Edit Post <i
+                class="far fa-edit"></i></button>
+    </a>
+<form method="post" action="{% url 'post-delete' post.id %}">
+    {% csrf_token %}
+    <button type="submit" onclick="return confirm('Pozmak isleyanizmi ?');" class="btn btn-danger position-fixed" style="margin-top: 60px">Delete Post <i
+            class="far fa-trash-alt"></i></button>
+</form>
+{% endif %}
+    <div class="row justify-content-center">
+        <div class="col-8">
+
+            <div class="card mb-3" style="width: 100%;margin-top: 10px;float: right">
+                {% if post.avatar %}
+                    <img src="{{ post.avatar.url }}" class="card-img-top" alt="" width="50px" height="350px">
+                {% endif %}
+                <div class="card-body">
+                    <p class="card-text" style="margin-bottom: 5px">{{ post.content }}</p>
+                    <a href="#"><i class="far fa-thumbs-up fa-lg"></i></a>
+                    <span style="margin-right: 10px">{{ post.total_likes }} </span>
+                    <a href="#"><i class="far fa-comment-dots fa-lg"></i></a>
+                    <span>{{ comments_count }}</span>
+                    <p class="card-text" style="float: right"><small class="text-muted">{{ post.created_date }}</small>
+                    </p>
+                </div>
+            </div>
+
+            <div class="be-comment-block">
+                <h5 class="comments-title">Comments ({{ comments_count }})</h5>
+                {% for comment in comments %}
+                <div class="be-comment">
+                    <div class="be-img-comment">
+                        <a href="{% url 'profile-detail' comment.user_id %}">
+                            <img src="{{ comment.user.avatar.url }}" alt="" class="be-ava-comment">
+                        </a>
+                    </div>
+                    <div class="be-comment-content">
+
+				<span class="be-comment-name">
+					<a href="{% url 'profile-detail' comment.user_id %}">{{ comment.user.username }}</a>
+					</span>
+                        <span class="be-comment-time">
+					<i class="fa fa-clock-o"></i>
+					{{ comment.created_date }}
+				</span>
+
+                        <p class="be-comment-text">
+                            {{ comment.comment_text }}
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+                <form class="form-block" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <textarea class="form-input" name="comment_text" required="" placeholder="Your text"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right">submit</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+        integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+        integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+        crossorigin="anonymous"></script>
+</body>
+</html>

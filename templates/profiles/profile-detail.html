@@ -1,0 +1,181 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel="stylesheet" href="../../static/css/profile.css">
+    <title>MyProfile</title>
+</head>
+<body>
+<nav class="navbar sticky-top navbar-light" style="background-color: #eaecec;margin-top: 0px;">
+    <div class="container-fluid">
+        <div class="col-sm-8">
+            <a class="navbar-brand" href="{% url 'post-list' %}">
+                <img src=" {% static 'img/F.svg' %} " alt="" width="30" height="24"
+                     class="d-inline-block align-text-top">
+                fakebook
+            </a>
+        </div>
+    </div>
+</nav>
+
+<nav class="navbar fixed-bottom navbar-light" style="background-color: #eaecec">
+    <div class="container-fluid  justify-content-center">
+        <a class="navbar-brand" href="{% url 'post-list' %}">
+            <i class="fi-sr-home" style="font-size: 30px"></i>
+        </a>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3" style="height: 640px;overflow-y: scroll">
+            <div class="card" style="margin-top: 10px; width: 313.7px;">
+                <div>
+                    <div style="text-align: center">
+                        {% if author.avatar %}
+                            <img src="{{ author.avatar.url }}" width="200px" height="200px" alt="user avatar">
+                        {% endif %}
+                    </div>
+                    <h5 style="margin-top: 5px;color: black;text-align: center;">{{ author.username }}</h5>
+                    <h6 style="margin-top: 5px;color: black;text-align: center;">{{ author.first_name }} {{ author.last_name }}</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group shadow-none">
+                        <li class="list-group-item">
+                            <div class="list-details" style="text-align: center">
+                                <span>{{ author.bio }}</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="row text-center mt-4">
+                        <div class="col p-2">
+                            <h4 class="mb-1 line-height-5">154</h4>
+                            <small class="mb-0 font-weight-bold">Posts</small>
+                        </div>
+
+                        <div class="col p-2">
+                            <a href="friends.html">
+                                <h4 class="mb-1 line-height-5">2.2k</h4>
+                                <small class="mb-0 font-weight-bold">Friends</small>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row text-center mt-4">
+                        {% if author != user %}
+                            <div class="col p-2">
+                                <a href="{% url 'chatroom' author.pk %}">
+                                    <h4 class="mb-1 line-height-5"><i class="fi-rr-envelope"></i></h4>
+                                    <small class="mb-0 font-weight-bold">Message</small>
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if author not in user.friends.all and author != user and friend_request.receiver != author %}
+                            <div class="col p-2" id="add_friend">
+                                <a href="{% url 'send friend request' author.id %}" onclick="myFunction()">
+                                    <h4 class="mb-1 line-height-5"><i class="fi-rr-user-add"></i></h4>
+                                    <small class="mb-0 font-weight-bold">Add Friends</small>
+                                </a>
+                            </div>
+                        {% elif user in author.friends.all %}
+                            <div class="col p-2" id="also_added">
+                                <h4 class="mb-1 line-height-5"><i class="fi-rr-user-add"></i></h4>
+                                <small class="mb-0 font-weight-bold">Your Friend</small>
+                            </div>
+                        {% elif friend_request.receiver == author %}
+                            <div class="col p-2" id="also_added">
+                                <h4 class="mb-1 line-height-5"><i class="fi-rr-user-add"></i></h4>
+                                <small class="mb-0 font-weight-bold">Also sended Request</small>
+                            </div>
+
+                        {% endif %}
+
+
+                    </div>
+
+                    <div class="row text-center mt-4">
+                        <div class="col p-2">
+                            <a href="{% url 'profile-edit' author.pk %}">
+                                <h4 class="mb-1 line-height-5"><i class="fi-rr-edit"></i></h4>
+                                <small class="mb-0 font-weight-bold">Edit</small>
+                            </a>
+                        </div>
+
+                        <div class="col p-2">
+                            <a href="{% url 'logout' %}">
+                                <h4 class="mb-1 line-height-5"><i class="fi-rr-power"></i></h4>
+                                <small class="mb-0 font-weight-bold">LogOut</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-5" style="overflow-y: scroll;height: 640px;">
+            <h3 style="margin-top: 15px">Posts ({{ posts.count }})</h3>
+            <hr>
+            {% for post in posts %}
+                <a href="#">
+                    <div class="card mb-3" style="margin-top: 10px;">
+                        {% if post.avatar %}
+                            <img src="{{ post.avatar.url }}" class="card-img-top" alt="" width="50px" height="350px">
+                        {% endif %}
+                        <div class="card-body">
+                            <p class="card-text" style="margin-bottom: 5px">{{ post.content }}</p>
+                            <a href="#"><i class="fi-rr-thumbs-up" style="font-size: 20px"></i></a>
+                            <a href="#"><i class="fi-rr-comment-alt" style="font-size: 20px; margin-left: 10px"></i></a>
+                            <p class="card-text" style="float: right"><small class="text-muted">Last updated 3 mins
+                                ago</small></p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+        <div class="col-4" style="overflow-y: scroll;height: 640px;">
+            <h3 style="margin-top: 15px">Friends ({{ author.friends.all.count }})</h3>
+            <hr>
+            <div class="people-nearby">
+                {% for friend in author.friends.all %}
+                    <div class="nearby-user">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2">
+                                <img src="{{ friend.avatar.url }}" alt="user" class="profile-photo-lg">
+                            </div>
+                            <div class="col-md-7 col-sm-7">
+                                <h5><a href="{% url 'profile-detail' friend.pk %}"
+                                       class="profile-link">{{ friend.username }}</a></h5>
+                                <p>{{ friend.first_name }} {{ friend.last_name }}</p>
+                                <p class="text-muted">{{ friend.last_login }}</p>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <a href="">
+                                    <button class="btn btn-primary pull-right"><i class="fi-sr-envelope"></i></button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+        integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+        integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+        crossorigin="anonymous"></script>
+</body>
+</html>
