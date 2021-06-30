@@ -1,0 +1,1 @@
+web: gunicorn MyFakebook.wsgi --log-file -
