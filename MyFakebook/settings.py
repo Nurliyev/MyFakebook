@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-jy3%c#r5y_nsr8(x4z4j(=7%xz6*%or9b7njoybvklz(=s9v@=
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['mrmapp.herokuapp.com']
+ALLOWED_HOSTS = ['myrealfakebook.herokuapp.com']
 
 # Application definition
 
@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'profiles',
     'posts',
     'chat',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -127,6 +129,14 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'nurliyev',
+    'API_KEY': '889262172117248',
+    'API_SECRET': 'kihVk19XJnF4o-2LtkxShNaSlkA'
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 MAILER_EMAIL_BACKEND = EMAIL_BACKEND
