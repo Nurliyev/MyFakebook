@@ -26,6 +26,19 @@ class PostList(LoginRequiredMixin, ListView):
         context['count'] = Friendships.objects.filter(receiver=self.request.user).count()
         return context
 
+    def paginate_queryset(self, queryset, page_size, ):
+        paginator = self.get_paginator(queryset, page_size, orphans=self.get_paginate_orphans(),
+                                       allow_empty_first_page=self.get_allow_empty())
+        page = self.request.GET.get("page", 1)
+        try:
+            page_number = int(page)
+            if page_number > paginator.num_pages or page_number < 1:
+                page_number = 1
+        except ValueError:
+            page_number = 1
+        page = paginator.page(page_number)
+        return paginator, page, page.object_list, page.has_other_pages()
+
 
 class PostCreate(CreateView):
     model = Post
