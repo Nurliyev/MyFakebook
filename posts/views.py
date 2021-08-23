@@ -18,7 +18,6 @@ class PostList(LoginRequiredMixin, ListView):
     template_name = 'index.html'
     context_object_name = 'posts'
     model = Post
-    ordering = ['-created_date']
     paginate_by = 1
 
     def get_context_data(self, **kwargs):
