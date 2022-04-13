@@ -5,7 +5,7 @@ autobahn==21.3.1
 Automat==20.2.0
 bson==0.5.10
 certifi==2021.5.30
-cffi==1.14.5
+cffi==1.15.0
 channels==3.0.3
 chardet==4.0.0
 cloudinary==1.26.0
@@ -16,8 +16,8 @@ dj-database-url==0.5.0
 Django==3.2.3
 django-cloudinary-storage==0.3.0
 django-heroku==0.3.1
-gevent==21.1.2
-greenlet==1.1.0
+gevent==21.12.0
+greenlet==1.1.2
 gunicorn==20.1.0
 hyperlink==21.0.0
 idna==2.10
