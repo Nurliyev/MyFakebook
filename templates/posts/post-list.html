@@ -4,106 +4,88 @@
 {% block title %}Fakebook{% endblock %}
 
 {% block content %}
-<div class="container" style="margin-bottom: 70px;margin-top: 70px;">
-    <div class="row justify-content-center">
-        <div class="col-11 col-md-10 col-lg-8 col-xl-7 infinite-container">
-            {% for post in posts %}
-                <div class="card mb-2 infinite-item" style="background-color: #ECECEC;">
-                    <a href="{% url 'profile-detail' post.author_id %}">
-                        <p style="margin-left: 7px;margin-top: 7px;margin-bottom: 7px"><img
-                                src="{{ post.author.avatar.url }}"
-                                height="30px" width="30px" style="border-radius: 50%;margin-right: 5px">
-                            {{ post.author }}</p></a>
-                    <a href="{% url 'post-detail' post.id %}">
-                        {% if post.avatar %}
-                            <img src="{{ post.avatar.url }}" class="card-img-top" alt="" style="height: 350px;">
-                        {% endif %}</a>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ post.tittle }}</h5>
-                        <p class="card-text" style="margin-bottom: 5px">{{ post.content }}</p>
+    <div class="container" style="margin-bottom: 70px;margin-top: 70px;">
+        <div class="row justify-content-center">
+            <div class="col-11 col-md-10 col-lg-8 col-xl-7 infinite-container">
+                {% for post in posts %}
+                    <div class="card mb-2 infinite-item" style="background-color: #ECECEC;">
+                        <a href="{% url 'profile-detail' post.author_id %}">
+                            <p style="margin-left: 7px;margin-top: 7px;margin-bottom: 7px"><img
+                                    src="{{ post.author.avatar.url }}"
+                                    height="30px" width="30px" style="border-radius: 50%;margin-right: 5px">
+                                {{ post.author }}</p></a>
+                        <a href="{% url 'post-detail' post.id %}">
+                            {% if post.avatar %}
+                                <img src="{{ post.avatar.url }}" class="card-img-top" alt="" style="height: 350px;">
+                            {% endif %}</a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.tittle }}</h5>
+                            <p class="card-text" style="margin-bottom: 5px">{{ post.content }}</p>
 
 
-                        <a class="like" id="{{ post.id }}"><i id="{{ post.id }}"
-                                                              class="like_icon fa-thumbs-up fa-lg {% if user in post.likes.all %}fas{% else %}far{% endif %}"></i>
-                            <span class="like_count"
-                                  style="margin-right: 10px" id="{{ post.id }}">{{ post.total_likes }}</span>
-                        </a>
+                            <a class="like" id="{{ post.id }}"><i id="{{ post.id }}"
+                                                                  class="like_icon fa-thumbs-up fa-lg {% if user in post.likes.all %}fas{% else %}far{% endif %}"></i>
+                                <span class="like_count"
+                                      style="margin-right: 10px" id="{{ post.id }}">{{ post.total_likes }}</span>
+                            </a>
 
-                        <a href="#"><i class="far fa-comment-dots fa-lg"></i></a>
-                        <span>{{ post.comments.count }}</span>
-                        <p class="card-text" style="float: right"><small
-                                class="text-muted">{{ post.created_date }}</small></p>
+                            <a href="#"><i class="far fa-comment-dots fa-lg"></i></a>
+                            <span>{{ post.comments.count }}</span>
+                            <p class="card-text" style="float: right"><small
+                                    class="text-muted">{{ post.created_date }}</small></p>
+                        </div>
                     </div>
-                </div>
 
-            {% endfor %}
-        </div>
-        {% if page_obj.has_next %}
-            <div class="col-12 pagination">
-                <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+                {% endfor %}
             </div>
-        {% endif %}
+            {% if page_obj.has_next %}
+                <div class="col-12 pagination">
+                    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+                </div>
+            {% endif %}
 
-        <div class="col-12 loading text-center" style=""><img src="{% static 'img/Spinner-3.gif' %}">
+            <div class="col-12 loading text-center" style=""><img src="{% static 'img/Spinner-3.gif' %}">
+            </div>
         </div>
     </div>
-</div>
 
     <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
-<script src="{% static 'js/infinite.min.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/infinite.min.js' %}"></script>
 
-<script>
-    var performClickEvent = function (event) {
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", "{% url 'like-button' %}", true);
-        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify({id: event.target.id}));
-        xhr.onreadystatechange = function () {
-            // Only run if the request is complete
-            if (xhr.readyState !== 4) return;
-            if (this.status === 200) {
-                const data = JSON.parse(this.responseText);
-                for (let likeCount of document.getElementsByClassName("like_count")) {
-                    if (event.target.id == likeCount.id) {
-                        likeCount.textContent = data['total_likes'];
+    <script>
+        var performClickEvent = function (event) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "{% url 'like-button' %}", true);
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify({id: event.target.id}));
+            xhr.onreadystatechange = function () {
+                // Only run if the request is complete
+                if (xhr.readyState !== 4) return;
+                if (this.status === 200) {
+                    const data = JSON.parse(this.responseText);
+                    for (let likeCount of document.getElementsByClassName("like_count")) {
+                        if (event.target.id == likeCount.id) {
+                            likeCount.textContent = data['total_likes'];
+                        }
+
                     }
-
-                }
-                for (let star of document.getElementsByClassName("like_icon")) {
-                    if (event.target.id == star.id) {
-                        if (data["is_liked"]) {
-                            star.classList.remove("far")
-                            star.classList.add("fas");
-                        } else {
-                            star.classList.remove("fas")
-                            star.classList.add("far");
+                    for (let star of document.getElementsByClassName("like_icon")) {
+                        if (event.target.id == star.id) {
+                            if (data["is_liked"]) {
+                                star.classList.remove("far")
+                                star.classList.add("fas");
+                            } else {
+                                star.classList.remove("fas")
+                                star.classList.add("far");
+                            }
                         }
                     }
                 }
-            }
-        };
-    }
-
-    $(document).ready(function () {
-        $('.like').on('click', performClickEvent)
-    })
-
-
-    var infinite = new Waypoint.Infinite({
-        element: $('.infinite-container')[0],
-        onBeforePageLoad: function () {
-            $('.loading').show();
-        },
-
-        onAfterPageLoad: function ($items) {
-            $('.loading').hide();
-            $items.each(function () {
-                $(this).find('.like').on('click', performClickEvent);
-            })
+            };
         }
-    });
-</script>
+    </script>
 
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 {% endblock %}
