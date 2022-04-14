@@ -10,16 +10,16 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3" style="height: 640px;overflow-y: scroll">
-                <div class="card" style="margin-top: 80px; width: 313.7px;">
+            <div class="col-3 column4">
+                <div class="card cart">
                     <div>
                         <div style="text-align: center">
                             {% if author.avatar %}
                                 <img src="{{ author.avatar.url }}" width="200px" height="200px" alt="user avatar">
                             {% endif %}
                         </div>
-                        <h5 style="margin-top: 5px;color: black;text-align: center;">{{ author.username }}</h5>
-                        <h6 style="margin-top: 5px;color: black;text-align: center;">{{ author.first_name }} {{ author.last_name }}</h6>
+                        <h5>{{ author.username }}</h5>
+                        <h6>{{ author.first_name }} {{ author.last_name }}</h6>
                     </div>
                     <div class="card-body">
                         <ul class="list-group shadow-none">
@@ -94,8 +94,8 @@
                 </div>
             </div>
 
-            <div class="col-5" style="overflow-y: scroll;height: 640px;">
-                <h3 style="margin-top: 15px">Posts ({{ posts.count }})</h3>
+            <div class="col-5 column4">
+                <h3>Posts ({{ posts.count }})</h3>
                 <hr>
                 {% for post in posts %}
                     <a href="#">
@@ -107,7 +107,7 @@
                             <div class="card-body">
                                 <p class="card-text" style="margin-bottom: 5px">{{ post.content }}</p>
                                 <a href="#"><i class="fi-rr-thumbs-up" style="font-size: 20px"></i></a>
-                                <a href="#"><i class="fi-rr-comment-alt" style="font-size: 20px; margin-left: 10px"></i></a>
+                                <a href="#"><i class="fi-rr-comment-alt icon-com"></i></a>
                                 <p class="card-text" style="float: right"><small class="text-muted">Last updated 3 mins
                                     ago</small></p>
                             </div>
@@ -116,8 +116,8 @@
                 {% endfor %}
             </div>
 
-            <div class="col-4" style="overflow-y: scroll;height: 640px;">
-                <h3 style="margin-top: 15px">Friends ({{ author.friends.all.count }})</h3>
+            <div class="col-4 column4">
+                <h3>Friends ({{ author.friends.all.count }})</h3>
                 <hr>
                 <div class="people-nearby">
                     {% for friend in author.friends.all %}

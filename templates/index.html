@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<nav class="navbar fixed-top navbar-light" style="background-color: #eaecec">
+<nav class="navbar fixed-top navbar-light main-nav">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'post-list' %}">
             <img src=" {% static 'img/F.svg' %} " alt="" width="30" height="24"
@@ -28,7 +28,7 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{% url 'notifications' %}">
                         <div class="position-relative">
-                            <i class="fi-rr-bell" style="float: right;font-size: 28px"></i>
+                            <i class="fi-rr-bell bell"></i>
                             {% if count != 0 %}
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ count }}</span>
                             {% else %}
@@ -47,16 +47,16 @@
 </nav>
 
 
-<nav class="navbar fixed-bottom navbar-light" style="background-color: #eaecec">
+<nav class="navbar fixed-bottom navbar-light bottom-nav">
     <div class="container-fluid  justify-content-center">
         <a class="navbar-brand" href="{% url 'rooms' %}">
-            <i class="fi-sr-envelope" style="margin-right: 30px;font-size: 30px"></i>
+            <i class="fi-sr-envelope icon-envelope"></i>
         </a>
         <a class="navbar-brand" href="{% url 'post-create' %}">
-            <i class="fi-rr-add" style="font-size: 30px"></i>
+            <i class="fi-rr-add icon-add"></i>
         </a>
         <a class="navbar-brand" href="{% url 'friend-list' %}">
-            <i class="fi-sr-users" style="margin-left: 30px;font-size: 30px"></i>
+            <i class="fi-sr-users icon-users"></i>
         </a>
     </div>
 </nav>

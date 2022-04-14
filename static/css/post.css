@@ -8,7 +8,7 @@ a {
     border: 1px solid #edeff2;
     border-radius: 2px;
     padding: 50px 70px;
-    border:1px solid #ffffff;
+    border: 1px solid #ffffff;
 }
 
 .comments-title {
@@ -113,6 +113,11 @@ a {
     height: 150px;
 }
 
+.cart {
+    width: 100%;
+    margin-top: 10px;
+    float: right
+}
 
 
 

@@ -3,3 +3,35 @@ a {
     color: black;
     cursor: pointer;
 }
+
+.main-nav {
+    background-color: #eaecec
+}
+
+.bell {
+    float: right;
+    font-size: 28px;
+}
+
+.bottom-nav {
+    background-color: #eaecec
+}
+
+.icon-envelope {
+    margin-right: 30px;
+    font-size: 30px
+}
+
+.icon-add {
+    font-size: 30px
+}
+
+.icon-users {
+    margin-left: 30px;
+    font-size: 30px
+}
+
+.content {
+    margin-bottom: 70px;
+    margin-top: 70px;
+}
