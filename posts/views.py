@@ -15,9 +15,10 @@ from profiles.models import Friendships
 # Create your views here.
 
 class PostList(LoginRequiredMixin, ListView):
-    template_name = 'index.html'
+    template_name = 'posts/post-list.html'
     context_object_name = 'posts'
     model = Post
+    ordering = '-created_date'
     paginate_by = 1
 
     def get_context_data(self, **kwargs):

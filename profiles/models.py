@@ -7,7 +7,8 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     bio = models.TextField(default='...', max_length=250)
     friends = models.ManyToManyField('User', blank=True, symmetrical=True, related_name='friends')
-    avatar = models.ImageField(upload_to='avatars', blank=True, null=True, default='../static/img/default-profile.png')
+    avatar = models.ImageField(upload_to='avatars', blank=True, null=True,
+                               default='../static/img/default-profile_zlb4io.png')
 
 
 class Friendships(models.Model):

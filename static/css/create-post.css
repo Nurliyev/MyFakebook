@@ -16,6 +16,7 @@ html,body{
 }
 
 .mycontainer{
+    margin-top: 80px;
     height: 350px;
     width: 600px;
     position: relative;
