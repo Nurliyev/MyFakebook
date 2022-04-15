@@ -19,7 +19,7 @@ class PostList(LoginRequiredMixin, ListView):
     context_object_name = 'posts'
     model = Post
     ordering = '-created_date'
-    paginate_by = 1
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         context = super(PostList, self).get_context_data(**kwargs)
