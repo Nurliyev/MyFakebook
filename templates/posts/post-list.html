@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col-11 col-md-10 col-lg-8 col-xl-7 infinite-container">
                 {% for post in posts %}
-                    <div class="card mb-2 infinite-item" style="background-color: #ECECEC;">
+                    <div class="card shadow p-3 mb-5 bg-white rounded infinite-item" style="background-color: rgba(0,0,0,.03);border: none">
                         <a href="{% url 'profile-detail' post.author_id %}">
                             <p style="margin-left: 7px;margin-top: 7px;margin-bottom: 7px"><img
                                     src="{{ post.author.avatar.url }}"

@@ -10,17 +10,14 @@
 </head>
 <body>
 
-<nav class="navbar sticky-top navbar-light" style="background-color: #eaecec">
+<nav class="navbar fixed-top navbar-light main-nav shadow-sm mb-5 bg-white rounded">
     <div class="container-fluid">
-        <div class="col-sm-8">
-            <a class="navbar-brand" href="#">
-                <img src="{% static 'img/free.png' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                fakebook
-            </a>
-        </div>
+        <a class="navbar-brand" href="{% url 'post-list' %}">
+            <img src=" {% static 'img/f.png' %} " alt="" width="24" height="24"
+                 class="d-inline-block align-text-top"><span class="d-none d-sm-none d-md-inline">akebook</span>
+        </a>
     </div>
 </nav>
-
 
 <form method="post">
     {% csrf_token %}

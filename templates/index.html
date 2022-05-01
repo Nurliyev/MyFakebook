@@ -11,24 +11,23 @@
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block statics %}{% endblock %}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
-          integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <title>{% block title %}{% endblock %}</title>
+    <script src="https://kit.fontawesome.com/d49c142c2b.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<nav class="navbar fixed-top navbar-light main-nav">
+<nav class="navbar fixed-top navbar-light main-nav shadow-sm mb-5 bg-white rounded">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'post-list' %}">
-            <img src=" {% static 'img/free.png' %} " alt="" width="30" height="24"
+            <img src=" {% static 'img/f.png' %} " alt="" width="24" height="24"
                  class="d-inline-block align-text-top"><span class="d-none d-sm-none d-md-inline">akebook</span>
         </a>
         <div class="">
             <ul class="nav justify-content-end">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{% url 'notifications' %}">
+                    <a class="nav-link" style="padding: 0.8rem 1rem" aria-current="page" href="{% url 'notifications' %}">
                         <div class="position-relative">
-                            <i class="fi-rr-bell bell"></i>
+                            <i class="fa-solid fa-bell bell"></i>
                             {% if count != 0 %}
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ count }}</span>
                             {% else %}
@@ -47,16 +46,16 @@
 </nav>
 
 
-<nav class="navbar fixed-bottom navbar-light bottom-nav">
+<nav class="navbar fixed-bottom navbar-light bottom-nav shadow-sm bg-white rounded" style="border: 1px solid rgba(0,0,0,.125)">
     <div class="container-fluid  justify-content-center">
         <a class="navbar-brand" href="{% url 'rooms' %}">
-            <i class="fi-sr-envelope icon-envelope"></i>
+            <i class="fa-solid fa-envelope icon-envelope"></i>
         </a>
         <a class="navbar-brand" href="{% url 'post-create' %}">
-            <i class="fi-rr-add icon-add"></i>
+            <i class="fa-solid fa-circle-plus icon-add"></i>
         </a>
         <a class="navbar-brand" href="{% url 'friend-list' %}">
-            <i class="fi-sr-users icon-users"></i>
+            <i class="fa-solid fa-users icon-users"></i>
         </a>
     </div>
 </nav>
