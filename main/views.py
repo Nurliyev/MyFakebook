@@ -90,13 +90,3 @@ def activate(request, uidb64, token):
     else:
         return render(request, "main/info_view.html", {"data": _("Activation link is invalid!")})
 
-
-class Notifications(ListView):
-    template_name = 'main/notifications.html'
-    context_object_name = 'friendships'
-    model = Friendships
-
-    def get_queryset(self):
-        return Friendships.objects.filter(
-            receiver=self.request.user
-        )

@@ -24,6 +24,9 @@ class PostList(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(PostList, self).get_context_data(**kwargs)
         context['count'] = Friendships.objects.filter(receiver=self.request.user).count()
+        context['friendships'] = Friendships.objects.filter(
+            receiver=self.request.user
+        )
         return context
 
     def paginate_queryset(self, queryset, page_size, ):
